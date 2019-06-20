@@ -1,5 +1,7 @@
 {
   "name": "random-quote-machine",
+  "author": "John Martin <johnjamesmartin@live.com>",
+  "license": "MIT",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

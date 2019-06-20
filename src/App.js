@@ -21,13 +21,13 @@ class App extends React.Component {
     this.state = {
       debugMode: config.defaultState.debugMode,
       autoplay: config.defaultState.autoplay,
-      background: 0,
+      quoteLengthMax: config.defaultState.quoteLengthMax,
       backgroundImageCredit: String,
-      data: [],
       quoteText: String,
       author: String,
+      data: [],
+      background: 0,
       quoteIndex: 0,
-      quoteLengthMax: config.defaultState.quoteLengthMax,
       si: null
     };
     this.classesAdd = this.classesAdd.bind(this);
