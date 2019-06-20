@@ -1,31 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
 import axios from 'axios';
 import BootstrapCSSOnly from 'bootstrap-css-only';
 import 'font-awesome/css/font-awesome.css';
 import './App.scss';
 import 'animate.css';
-
+import Author from './Author/Author';
+import Hud from './Hud/Hud';
+import QuoteText from './QuoteText/QuoteText';
+import Footer from './Footer/Footer';
 import backgroundsArr from './common/backgrounds';
 import animationArr from './common/animations';
-
-/* Config:
- ******************************************/
-const Config = {
-  api: {
-    url: 'https://api.myjson.com/bins/wtpkp'
-  },
-  backgrounds: {
-    src: 'https://i.ibb.co/',
-    credit: 'https://bit.ly/'
-  },
-  interval: {
-    autoplay: {
-      si: null,
-      time: 5000
-    }
-  }
-};
+import config from './common/config';
 
 let Backgrounds = backgroundsArr;
 let Animations = animationArr;
@@ -99,11 +84,11 @@ class App extends React.Component {
     playPause.innerHTML = `<i class="fa fa-${className}"></i>`;
     // Autoplay interval
     if (!autoplay) {
-      Config.interval.autoplay.si = setInterval(() => {
+      config.interval.autoplay.si = setInterval(() => {
         this.handleNextClick();
-      }, Config.interval.autoplay.time);
+      }, config.interval.autoplay.time);
     } else {
-      clearInterval(Config.interval.autoplay.si);
+      clearInterval(config.interval.autoplay.si);
     }
     if (debugMode) console.log(autoplay ? 'Autoplay off' : 'Autoplay on');
   }
@@ -138,21 +123,21 @@ class App extends React.Component {
     this.setState(
       {
         backgroundImageCredit:
-          Config.backgrounds.credit + Backgrounds[background].credit
+          config.backgrounds.credit + Backgrounds[background].credit
       },
       () => {
         console.log(this.state.backgroundImageCredit);
       }
     );
     if (debugMode) console.log('Background index: ' + background);
-    document.body.style.backgroundImage = `url("${Config.backgrounds.src}${
+    document.body.style.backgroundImage = `url("${config.backgrounds.src}${
       Backgrounds[background].src
     }")`;
   }
   updateData() {
     if (this.state.debugMode) console.log('Starting GET request');
     axios
-      .get(Config.api.url)
+      .get(config.api.url)
       .then(res => {
         this.setData(res.data.quotes);
       })
@@ -200,132 +185,8 @@ class App extends React.Component {
             <Author author={this.state.author} />
           </div>
         </div>
-        <footer>
-          By John for <a href="#">FreeCodeCamp</a>
-        </footer>
+        <Footer />
       </React.Fragment>
-    );
-  }
-}
-
-/* Hud (heads up display):
- ******************************************/
-class Hud extends React.Component {
-  render() {
-    return (
-      <div className="hud guidelines row">
-        <LinkButtons
-          handleBgSrcClick={this.props.handleBgSrcClick}
-          twitterLink={this.props.twitterLink}
-        />
-        <Controls
-          handleNextClick={this.props.handleNextClick}
-          handlePlayClick={this.props.handlePlayClick}
-        />
-      </div>
-    );
-  }
-}
-
-/* Controls:
- ******************************************/
-class Controls extends React.Component {
-  render() {
-    return (
-      <div className="col-md-9 guidelines">
-        <button
-          className="float-right btn btn-lg btn-dark"
-          id="new-quote"
-          onClick={this.props.handleNextClick}
-        >
-          Next <i className="fa fa-random" />
-        </button>
-        <button
-          className="float-right btn btn-lg btn-dark"
-          id="play-pause"
-          onClick={this.props.handlePlayClick}
-        >
-          <i className="fa fa-play" />
-        </button>
-      </div>
-    );
-  }
-}
-
-/* Link buttons:
- ******************************************/
-class LinkButtons extends React.Component {
-  render() {
-    return (
-      <div className="hud-twitter-btn-wrapper col-md-3 guidelines">
-        <a
-          className="float-left btn-lg btn-info"
-          id="background-src"
-          onClick={this.props.handleBgSrcClick}
-        >
-          <i className="fa fa-image" />
-        </a>
-        <a
-          className="float-left btn-lg btn-primary"
-          id="tweet-quote"
-          href={this.props.twitterLink}
-          target="_blank"
-        >
-          <i className="fa fa-twitter" />
-        </a>
-      </div>
-    );
-  }
-}
-
-/* Quote text:
- ******************************************/
-class QuoteText extends React.Component {
-  render() {
-    const style = () => {
-      let fSize = 45;
-      switch (true) {
-        case this.props.quoteText.length < 40:
-          fSize = 50;
-          break;
-        case this.props.quoteText.length > 0 &&
-          this.props.quoteText.length < 50:
-          fSize = 50;
-          break;
-        case this.props.quoteText.length > 50 &&
-          this.props.quoteText.length < 70:
-          fSize = 45;
-          break;
-        case this.props.quoteText.length > 70 &&
-          this.props.quoteText.length < 90:
-          fSize = 40;
-          break;
-        case this.props.quoteText.length > 90 &&
-          this.props.quoteText.length < 120:
-          fSize = 32;
-          break;
-        case this.props.quoteText.length > 120:
-          fSize = 26;
-          break;
-      }
-      return { fontSize: fSize };
-    };
-    return (
-      <div className="quote guidelines" id="text" style={style()}>
-        <i className="fa fa-quote-left" /> <span>{this.props.quoteText}</span>
-      </div>
-    );
-  }
-}
-
-/* Author:
- ******************************************/
-class Author extends React.Component {
-  render() {
-    return (
-      <div id="author" className="author guidelines">
-        — {this.props.author}
-      </div>
     );
   }
 }
