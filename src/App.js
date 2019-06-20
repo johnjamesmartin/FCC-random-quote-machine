@@ -15,8 +15,6 @@ import config from './common/config';
 let Backgrounds = backgroundsArr;
 let Animations = animationArr;
 
-/* App:
- ******************************************/
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -41,7 +39,6 @@ class App extends React.Component {
     this.updateQuoteText = this.updateQuoteText.bind(this);
     this.updateBackground = this.updateBackground.bind(this);
   }
-
   animateQuote() {
     const index = Math.floor(Math.random() * Animations.length);
     const quote = document.getElementById('text');
@@ -122,15 +119,10 @@ class App extends React.Component {
     this.setState({
       background: background < Backgrounds.length - 1 ? background + 1 : 0
     });
-    this.setState(
-      {
-        backgroundImageCredit:
-          config.backgrounds.credit + Backgrounds[background].credit
-      },
-      () => {
-        console.log(this.state.backgroundImageCredit);
-      }
-    );
+    this.setState({
+      backgroundImageCredit:
+        config.backgrounds.credit + Backgrounds[background].credit
+    });
     if (debugMode) console.log('Background index: ' + background);
     document.body.style.backgroundImage = `url("${config.backgrounds.src}${
       Backgrounds[background].src
