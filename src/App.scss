@@ -1,0 +1,141 @@
+/* Variables:
+******************************************/
+$guidelines: 0px dotted #fff;
+$font-size-lg: 55px;
+$font-size-md: 26px;
+$font-size-xs: 6px;
+$col-darkest: #000;
+$col-lightest: #fff;
+$col-twitter: #1280c5;
+$scale: 1;
+
+/* Mixins:
+******************************************/
+@mixin horizontal-center() {
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  right: 0;
+}
+@mixin vertical-center() {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+@mixin center() {
+  @include horizontal-center();
+  @include vertical-center();
+}
+
+/* General:
+******************************************/
+body {
+  background-attachment: fixed;
+  background-color: lighten($col-darkest, 5%);
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: $col-lightest;
+}
+body,
+html {
+  min-width: 400px;
+}
+.container {
+  @include center();
+  height: 100vh;
+  transform: scale($scale);
+}
+footer {
+  bottom: 0;
+  font-size: $font-size-xs;
+  letter-spacing: 1.2px;
+  margin-bottom: 5px;
+  opacity: 0.6;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
+  text-shadow: 1px 1px 1px #00000045;
+}
+.guidelines {
+  border: $guidelines;
+}
+.author {
+  font-size: $font-size-md;
+  margin-top: 10px;
+  text-align: right;
+  text-shadow: 1px 1px 1px #00000085;
+}
+.quote {
+  background-color: $col-darkest;
+  border-radius: 5px;
+  font-size: $font-size-lg;
+  line-height: 50px;
+  margin-top: 20px;
+  padding: 10px;
+}
+.quote-box {
+  height: 300px;
+}
+
+/* Buttons:
+******************************************/
+.btn-dark {
+  background-color: lighten($col-darkest, 5%);
+  border: 0;
+}
+.btn-dark:hover {
+  background-color: lighten($col-darkest, 10%);
+}
+.btn-primary {
+  background-color: $col-twitter !important;
+  border: 0;
+  box-shadow: 1px 1px 1px #00000045;
+}
+.btn-primary:hover {
+  background-color: lighten(#1280c5, 10%) !important;
+}
+.btn-primary:hover,
+.btn-info:hover {
+  cursor: pointer;
+}
+.btn-info {
+  background-color: adjust-hue($col-twitter, -10%) !important;
+  border: 0;
+  box-shadow: 1px 1px 1px #00000045;
+}
+.btn-info:hover {
+  background-color: lighten(adjust-hue($col-twitter, -10%), 5%) !important;
+}
+
+/* Media queries:
+******************************************/
+@media only screen and (max-width: 768px) {
+  .author {
+    font-size: $font-size-md - 5px;
+  }
+  .quote {
+    font-size: $font-size-lg - 5px;
+  }
+  .quote-box {
+    margin-top: -100px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .author {
+    font-size: $font-size-md - 5px;
+  }
+  .quote {
+    font-size: $font-size-lg - 15px;
+  }
+  .quote-box {
+    margin-top: -140px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  footer {
+    display: none;
+  }
+}
