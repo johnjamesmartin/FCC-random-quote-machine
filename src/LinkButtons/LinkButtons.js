@@ -6,14 +6,14 @@ class LinkButtons extends Component {
     return (
       <div className="hud-twitter-btn-wrapper col-md-3 guidelines">
         <a
-          className="float-left btn-lg btn-info"
+          className="float-left btn btn-info"
           id="background-src"
           onClick={this.props.handleBgSrcClick}
         >
           <i className="fa fa-image" />
         </a>
         <a
-          className="float-left btn-lg btn-primary"
+          className="float-left btn btn-primary"
           id="tweet-quote"
           href={this.props.twitterLink}
           target="_blank"

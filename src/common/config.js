@@ -6,6 +6,11 @@ const config = {
     src: 'https://i.ibb.co/',
     credit: 'https://bit.ly/'
   },
+  defaultState: {
+    debugMode: false,
+    autoplay: false,
+    quoteLengthMax: 100
+  },
   interval: {
     autoplay: {
       si: null,

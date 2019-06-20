@@ -1,7 +1,7 @@
 /* Variables:
 ******************************************/
 $guidelines: 0px dotted #fff;
-$font-size-lg: 55px;
+$font-size-lg: 65px;
 $font-size-md: 26px;
 $font-size-xs: 6px;
 $col-darkest: #000;
@@ -78,6 +78,7 @@ footer {
 }
 .quote-box {
   height: 300px;
+  z-index: 5;
 }
 
 /* Buttons:

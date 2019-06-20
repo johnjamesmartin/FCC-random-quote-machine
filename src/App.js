@@ -21,30 +21,32 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      debugMode: false,
-      autoplay: false,
-      data: [],
-      quoteText: '',
-      quoteIndex: 0,
-      quoteLengthMax: 100,
-      author: '',
+      debugMode: config.defaultState.debugMode,
+      autoplay: config.defaultState.autoplay,
       background: 0,
-      backgroundImageCredit: '',
+      backgroundImageCredit: String,
+      data: [],
+      quoteText: String,
+      author: String,
+      quoteIndex: 0,
+      quoteLengthMax: config.defaultState.quoteLengthMax,
       si: null
     };
     this.classesAdd = this.classesAdd.bind(this);
     this.classesRemove = this.classesRemove.bind(this);
-    this.handleBgSrcClick = this.handleBgSrcClick.bind(this);
+    this.handleBackgroundSrcClick = this.handleBackgroundSrcClick.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePlayClick = this.handlePlayClick.bind(this);
     this.updateAuthor = this.updateAuthor.bind(this);
     this.updateQuoteText = this.updateQuoteText.bind(this);
     this.updateBackground = this.updateBackground.bind(this);
   }
+
   animateQuote() {
+    const index = Math.floor(Math.random() * Animations.length);
     const quote = document.getElementById('text');
     const author = document.getElementById('author');
-    const animIndex = Math.floor(Math.random() * Animations.length);
+    // Remove classes ("animated" class & specific animate.css classes)
     this.classesRemove([[quote, 'animated'], [author, 'animated']]);
     for (let i = 0; i <= Animations.length - 1; i++) {
       this.classesRemove([[quote, Animations[i]], [author, Animations[i]]]);
@@ -52,8 +54,8 @@ class App extends React.Component {
     this.classesAdd([
       [quote, 'animated'],
       [author, 'animated'],
-      [quote, Animations[animIndex]],
-      [author, Animations[animIndex]]
+      [quote, Animations[index]],
+      [author, Animations[index]]
     ]);
   }
   classesAdd(arr) {
@@ -92,7 +94,7 @@ class App extends React.Component {
     }
     if (debugMode) console.log(autoplay ? 'Autoplay off' : 'Autoplay on');
   }
-  handleBgSrcClick() {
+  handleBackgroundSrcClick() {
     if (this.state.debugMode) console.log('Opening background source');
     window.open(this.state.backgroundImageCredit);
   }
@@ -164,8 +166,9 @@ class App extends React.Component {
   render() {
     const formatTwitterUrl = () => {
       const { quoteText, author } = this.state;
-      const url = 'https://twitter.com/intent/tweet';
-      return encodeURI(`${url}?text="${quoteText}" — ${author}`);
+      return encodeURI(
+        `https://twitter.com/intent/tweet?text="${quoteText}" — ${author}`
+      );
     };
     return (
       <React.Fragment>
@@ -175,7 +178,7 @@ class App extends React.Component {
         >
           <div id="quote-box" className="quote-box guidelines container-fluid">
             <Hud
-              handleBgSrcClick={this.handleBgSrcClick}
+              handleBackgroundSrcClick={this.handleBackgroundSrcClick}
               handleNextClick={this.handleNextClick}
               handlePlayClick={this.handlePlayClick}
               quoteIndex={this.state.quoteIndex}
